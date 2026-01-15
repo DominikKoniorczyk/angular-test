@@ -7,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrl: './header.scss',
 })
 export class Header {
+  path = "detail";
+  btn_text = "Neues Produkt";
+  ngOnInit(){
+    this.path = " ";
 
+    if(this.path === "detail"){
+      this.btn_text = "Zurück zur Liste";
+    }
+  }
 }
