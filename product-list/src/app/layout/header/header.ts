@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -7,11 +8,13 @@ import { Component } from '@angular/core';
   styleUrl: './header.scss',
 })
 export class Header {
-  path = "detail";
+  path = "";
   btn_text = "Neues Produkt";
-  ngOnInit(){
-    this.path = " ";
+  private route = inject(ActivatedRoute);
 
+  ngOnInit(){
+    let currentName = this.route.snapshot.paramMap.get('name'); // Get the 'id' parameter from the route (link: /detail/:id)
+    if(currentName) this.path = currentName;
     if(this.path === "detail"){
       this.btn_text = "Zurück zur Liste";
     }

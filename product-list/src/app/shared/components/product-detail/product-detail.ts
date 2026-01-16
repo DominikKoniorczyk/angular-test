@@ -1,21 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ProductList } from '../product-list/product-list';
 
 @Component({
   selector: 'app-product-detail',
-  imports: [],
+  imports: [ProductList],
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.scss',
 })
 export class ProductDetail {
+
+  private route = inject(ActivatedRoute);
+
+  ngOnInit(): void {
+    let currentName = this.route.snapshot.paramMap.get('name'); // Get the 'id' parameter from the route (link: /detail/:id)
+    if(currentName) this.detail.name = currentName;
+  }
+  
   detail = {
-    "name": "Gaming Maus",
-    "description": "Eine hochwertige Gaming Maus mit programmierbaren Tasten und RGB-Beleuchtung.",
-    "specs": "DPI: 16000, Gewicht: 120g, Anschluss: USB-C, Tasten: 8 programmierbare Tasten",
-    "stock": 120,
-    "price": 59.99
+    "name": "",
+    "description": "",
+    "specs": "",
+    "stock": "",
+    "price": ""
   }
 
   deleteDetail(){
     this.detail.name = "";
+  }
+
+  constructor() {
   }
 }
